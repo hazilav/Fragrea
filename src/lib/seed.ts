@@ -25,14 +25,14 @@ async function main() {
   await prisma.admin.deleteMany({});
   await prisma.user.deleteMany({});
 
-  // 2. Seed Users & Admin
-  const adminPasswordHash = await bcrypt.hash('FragreaLuxury2025!', 10);
+  // 2. Seed Users & Master Admin
+  const adminPasswordHash = await bcrypt.hash('Jadallah@321', 10);
   const adminUser = await prisma.user.create({
     data: {
-      email: 'admin@fragrea.com',
+      email: 'fragreafragrance@gmail.com',
       passwordHash: adminPasswordHash,
-      firstName: 'Jean-Luc',
-      lastName: 'Vaneau',
+      firstName: 'Fragrea',
+      lastName: 'Maison Admin',
       role: 'SUPER_ADMIN',
       isActive: true,
       admin: {
@@ -569,79 +569,9 @@ async function main() {
     },
   });
 
-  // 9. Seed Orders, OrderItems, Payments, and Shipping
-  const pOud = createdProductsMap['oud-nocturne'];
-  const pCuir = createdProductsMap['cuir-tabac'];
-
-  if (customer1.addresses[0]) {
-    const order1 = await prisma.order.create({
-      data: {
-        orderNumber: 'FRG-2026-8841',
-        userId: customerUser1.id,
-        customerId: customer1.id,
-        customerEmail: customer1.email,
-        customerName: `${customer1.firstName} ${customer1.lastName}`,
-        shippingAddressId: customer1.addresses[0].id,
-        billingAddressId: customer1.addresses[0].id,
-        status: 'DELIVERED',
-        currency: 'USD',
-        subtotal: 690,
-        discountAmount: 0,
-        shippingFee: 0,
-        taxAmount: 0,
-        total: 690,
-        giftWrap: true,
-        sampleChoices: 'Rose Velours (2ml), Santal Impérial (2ml)',
-        specialInstructions: 'Please leave with concierge.',
-        items: {
-          create: [
-            {
-              productId: pOud.id,
-              productName: pOud.name,
-              productSku: pOud.sku,
-              productImage: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=1200',
-              size: pOud.size,
-              unitPrice: pOud.price,
-              quantity: 1,
-              totalPrice: pOud.price,
-            },
-            {
-              productId: pCuir.id,
-              productName: pCuir.name,
-              productSku: pCuir.sku,
-              productImage: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=1200',
-              size: pCuir.size,
-              unitPrice: pCuir.price,
-              quantity: 1,
-              totalPrice: pCuir.price,
-            },
-          ],
-        },
-        payments: {
-          create: [
-            {
-              amount: 690,
-              currency: 'USD',
-              paymentMethod: 'CREDIT_CARD',
-              status: 'CAPTURED',
-              transactionId: 'TXN-FRG-984102',
-            },
-          ],
-        },
-        shipment: {
-          create: {
-            carrier: 'White-Glove Private Courier',
-            trackingNumber: 'WG-LON-992140',
-            trackingUrl: 'https://courier.fragrea.com/track/WG-LON-992140',
-            status: 'DELIVERED',
-            dispatchedAt: new Date(Date.now() - 86400000 * 3),
-            deliveredAt: new Date(),
-          },
-        },
-      },
-    });
-    console.log(`Created Order ${order1.orderNumber} with Payment & Shipping.`);
-  }
+  // 9. Orders initialized to clean slate (0 initial orders)
+  console.log('Orders table initialized to clean state (0 orders).');
+  console.log('Database seeded with catalog, collections, and master admin successfully!');
 
   console.log('Database seeded with all 17 models successfully!');
 }

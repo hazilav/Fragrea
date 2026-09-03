@@ -58,8 +58,9 @@ export function middleware(req: NextRequest) {
   }
 
   // 2. Admin Route Protection
-  const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin/login';
-  const isAdminApiRoute = pathname.startsWith('/api/admin') && pathname !== '/api/admin/auth';
+  const isPublicAdminRoute = pathname === '/admin/login' || pathname === '/admin/forgot-password';
+  const isAdminRoute = pathname.startsWith('/admin') && !isPublicAdminRoute;
+  const isAdminApiRoute = pathname.startsWith('/api/admin') && !pathname.startsWith('/api/admin/auth');
 
   const sessionToken = req.cookies.get(ADMIN_COOKIE_NAME)?.value;
 

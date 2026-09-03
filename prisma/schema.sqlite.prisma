@@ -328,3 +328,14 @@ model CustomerNotification {
   sentAt    DateTime @default(now())
 }
 
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  code      String   // 6-digit verification code
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
+

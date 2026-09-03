@@ -30,21 +30,21 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const isMasterDemoCreds =
-      (identifier === 'admin@fragrea.com' || identifier === 'admin') &&
-      password === 'FragreaLuxury2025!';
+    const isMasterAdminCreds =
+      (identifier === 'fragreafragrance@gmail.com' || identifier === 'admin@fragrea.com') &&
+      password === 'Jadallah@321';
 
     // If DATABASE_URL is not configured yet in Vercel environment variables:
     if (!process.env.DATABASE_URL) {
-      if (isMasterDemoCreds) {
+      if (isMasterAdminCreds) {
         await createAdminSession('admin-master-default');
         return NextResponse.json({
           success: true,
           admin: {
             id: 'admin-master-default',
             userId: 'user-master-default',
-            email: 'admin@fragrea.com',
-            name: 'Jean-Luc Vaneau',
+            email: 'fragreafragrance@gmail.com',
+            name: 'Fragrea Maison Administrator',
             role: 'SUPER_ADMIN',
           },
         });
@@ -52,10 +52,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error:
-            'DATABASE_URL is not set in Vercel Environment Variables. Please configure DATABASE_URL in Vercel Project Settings or use the preset demo credentials.',
+          error: 'Invalid credentials.',
         },
-        { status: 400 }
+        { status: 401 }
       );
     }
 
@@ -73,15 +72,15 @@ export async function POST(req: NextRequest) {
 
       if (!user || !user.passwordHash || !user.admin) {
         // Fallback for master demo credentials if database is empty
-        if (isMasterDemoCreds) {
+        if (isMasterAdminCreds) {
           await createAdminSession('admin-master-default');
           return NextResponse.json({
             success: true,
             admin: {
               id: 'admin-master-default',
               userId: 'user-master-default',
-              email: 'admin@fragrea.com',
-              name: 'Jean-Luc Vaneau',
+              email: 'fragreafragrance@gmail.com',
+              name: 'Fragrea Maison Administrator',
               role: 'SUPER_ADMIN',
             },
           });
@@ -125,15 +124,15 @@ export async function POST(req: NextRequest) {
       });
     } catch (dbError: any) {
       console.error('Database query error in admin auth:', dbError);
-      if (isMasterDemoCreds) {
+      if (isMasterAdminCreds) {
         await createAdminSession('admin-master-default');
         return NextResponse.json({
           success: true,
           admin: {
             id: 'admin-master-default',
             userId: 'user-master-default',
-            email: 'admin@fragrea.com',
-            name: 'Jean-Luc Vaneau',
+            email: 'fragreafragrance@gmail.com',
+            name: 'Fragrea Maison Administrator',
             role: 'SUPER_ADMIN',
           },
         });

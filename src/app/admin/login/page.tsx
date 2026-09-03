@@ -3,12 +3,12 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ShieldCheck, Lock, ArrowRight, KeyRound } from 'lucide-react';
+import { Lock, ArrowRight, KeyRound } from 'lucide-react';
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [emailOrUsername, setEmailOrUsername] = useState('admin@fragrea.com');
-  const [password, setPassword] = useState('FragreaLuxury2025!');
+  const [emailOrUsername, setEmailOrUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -38,11 +38,6 @@ export default function AdminLoginPage() {
     }
   };
 
-  const handleDemoFill = () => {
-    setEmailOrUsername('admin@fragrea.com');
-    setPassword('FragreaLuxury2025!');
-  };
-
   return (
     <div className="min-h-screen bg-noir-950 flex flex-col justify-center items-center p-6 text-ivory-100">
       <div className="w-full max-w-md space-y-8">
@@ -69,7 +64,7 @@ export default function AdminLoginPage() {
           </div>
 
           {error && (
-            <div className="bg-red-950/60 border border-red-500/40 text-red-200 text-xs p-3.5 rounded-sm">
+            <div className="bg-red-950/60 border border-red-500/40 text-red-200 text-xs p-3.5 rounded-sm leading-relaxed">
               {error}
             </div>
           )}
@@ -90,9 +85,18 @@ export default function AdminLoginPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] uppercase tracking-wider text-ivory-300 block">
-                Master Password
-              </label>
+              <div className="flex items-center justify-between">
+                <label className="text-[10px] uppercase tracking-wider text-ivory-300 block">
+                  Master Password
+                </label>
+                <Link
+                  href="/admin/forgot-password"
+                  className="text-[10px] text-gold-400 hover:text-gold-300 transition-colors uppercase tracking-wider flex items-center gap-1"
+                >
+                  <KeyRound className="w-3 h-3" />
+                  <span>Forgot Password?</span>
+                </Link>
+              </div>
               <input
                 type="password"
                 required
@@ -118,24 +122,6 @@ export default function AdminLoginPage() {
               )}
             </button>
           </form>
-
-          {/* Quick Demo Credentials Autofill */}
-          <div className="pt-4 border-t border-white/5 space-y-3">
-            <div className="flex items-center justify-between text-[11px] text-ivory-400">
-              <span>Demo Credentials Preset:</span>
-              <button
-                type="button"
-                onClick={handleDemoFill}
-                className="text-gold-400 hover:text-gold-200 underline text-[10px] uppercase tracking-wider"
-              >
-                Autofill Demo
-              </button>
-            </div>
-            <div className="p-3 bg-noir-950/80 border border-white/5 text-[11px] text-ivory-400 font-mono space-y-1">
-              <div>user: <span className="text-ivory-200">admin@fragrea.com</span></div>
-              <div>pass: <span className="text-ivory-200">FragreaLuxury2025!</span></div>
-            </div>
-          </div>
         </div>
 
         <div className="text-center">
