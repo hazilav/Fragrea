@@ -93,6 +93,17 @@ export async function PUT(
       );
     }
 
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            'MySQL database is not connected on Vercel. Please add DATABASE_URL in Vercel Project Settings (Settings > Environment Variables).',
+        },
+        { status: 503 }
+      );
+    }
+
     const { id } = params;
     const body = await req.json();
 
@@ -199,6 +210,17 @@ export async function DELETE(
       return NextResponse.json(
         { success: false, error: 'Unauthorized. Admin credentials required.' },
         { status: 401 }
+      );
+    }
+
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            'MySQL database is not connected on Vercel. Please add DATABASE_URL in Vercel Project Settings (Settings > Environment Variables).',
+        },
+        { status: 503 }
       );
     }
 

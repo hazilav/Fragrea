@@ -138,6 +138,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            'MySQL database is not connected on Vercel. Please add your DATABASE_URL in Vercel Project Settings (Settings > Environment Variables) to enable saving products to your database.',
+        },
+        { status: 503 }
+      );
+    }
+
     const body = await req.json();
 
     // 2. Server-Side Validation
@@ -239,6 +250,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, product: created });
   } catch (error: any) {
     console.error('Error creating product:', error);
+    if (error.message?.includes('DATABASE_URL') || !process.env.DATABASE_URL) {
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            'MySQL database is not connected. Please add DATABASE_URL in your Vercel Project Settings (Settings > Environment Variables).',
+        },
+        { status: 503 }
+      );
+    }
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
