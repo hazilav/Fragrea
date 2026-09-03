@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #08080A;
+  --foreground: #F7F5F0;
+}
+
+body {
+  color: #F7F5F0;
+  background: #08080A;
+  font-family: var(--font-montserrat), system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Luxury Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08080A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #25201B;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C5A880;
+}
+
+/* Luxury Glassmorphism */
+.glass-luxury {
+  background: rgba(10, 10, 13, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(197, 168, 128, 0.14);
+}
+
+.glass-card {
+  background: rgba(18, 18, 22, 0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(197, 168, 128, 0.12);
+}
+
+.glass-dropdown {
+  background: rgba(14, 14, 18, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(197, 168, 128, 0.2);
+}
+
+/* Golden Accent Gradients & Subtle Shimmers */
+.gold-text-gradient {
+  background: linear-gradient(135deg, #F7F5F0 0%, #D4B28C 45%, #C5A880 75%, #9E7D52 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.amber-ambient-glow {
+  box-shadow: 0 0 60px -10px rgba(212, 158, 106, 0.12);
+}
+
+.gold-subtle-glow {
+  box-shadow: 0 0 30px -5px rgba(197, 168, 128, 0.15);
+}
+
+/* Editorial Serif Headings */
+h1, h2, h3, .font-serif {
+  font-family: var(--font-cormorant), "Playfair Display", Georgia, serif;
+}
+
+/* Selection */
+::selection {
+  background: #C5A880;
+  color: #08080A;
+}
+
+/* Luxury Animation Keyframes & Utility Classes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slowGlow {
+  0%, 100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-reveal-up {
+  animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slow-glow {
+  animation: slowGlow 8s ease-in-out infinite;
+}
+
+/* Staggered animation delays for editorial hero */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-800 { animation-delay: 800ms; }
+
+/* Subtle image hover scale */
+.luxury-image-zoom {
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s ease;
+}
+
+.group:hover .luxury-image-zoom {
+  transform: scale(1.05);
+}
+
+/* Button micro-interaction */
+.btn-luxury {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-luxury::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-luxury:hover::after {
+  opacity: 1;
+}
+
+@keyframes slowDrift {
+  0% {
+    transform: scale(1.05) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.08) translate(-1%, -1%);
+  }
+  100% {
+    transform: scale(1.05) translate(0, 0);
+  }
+}
+
+.animate-slow-drift {
+  animation: slowDrift 20s ease-in-out infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
