@@ -12,6 +12,20 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    outputFileTracingIncludes: {
+      '/**': ['./prisma/fragrea.db'],
+    },
+  },
+  async redirects() {
+    return [
+      {
+        source: '/products/:slug',
+        destination: '/product/:slug',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
