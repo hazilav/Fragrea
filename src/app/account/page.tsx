@@ -24,38 +24,43 @@ export default async function AccountPage() {
     };
 
     // Strictly fetch only this authenticated customer's orders
-    const dbOrders = await prisma.order.findMany({
-      where: {
-        OR: [
-          { userId: session.userId },
-          { customerId: session.customerId },
-          { customerEmail: session.email },
-        ],
-      },
-      include: {
-        items: {
-          include: {
-            product: {
-              select: {
-                id: true,
-                name: true,
-                slug: true,
+    let dbOrders: any[] = [];
+    try {
+      dbOrders = await prisma.order.findMany({
+        where: {
+          OR: [
+            { userId: session.userId },
+            { customerId: session.customerId },
+            { customerEmail: session.email },
+          ],
+        },
+        include: {
+          items: {
+            include: {
+              product: {
+                select: {
+                  id: true,
+                  name: true,
+                  slug: true,
+                },
               },
             },
           },
-        },
-        shippingAddress: true,
-        payments: {
-          select: {
-            status: true,
+          shippingAddress: true,
+          payments: {
+            select: {
+              status: true,
+            },
           },
         },
-      },
-      orderBy: { createdAt: 'desc' },
-    });
+        orderBy: { createdAt: 'desc' },
+      });
+    } catch (e) {
+      console.warn('Orders fetch error in account page:', e);
+    }
 
-    initialOrders = dbOrders.map((o) => {
-      const latestPayment = o.payments[0];
+    initialOrders = dbOrders.map((o: any) => {
+      const latestPayment = o.payments && o.payments[0] ? o.payments[0] : null;
       const paymentStatus = latestPayment ? latestPayment.status : 'PENDING';
 
       return {
@@ -68,18 +73,20 @@ export default async function AccountPage() {
         shippingFee: o.shippingFee,
         total: o.total,
         totalAmount: o.total,
-        itemCount: o.items.reduce((sum, item) => sum + item.quantity, 0),
-        items: o.items.map((i) => ({
-          id: i.id,
-          productName: i.productName,
-          productImage: i.productImage,
-          productSku: i.productSku,
-          size: i.size,
-          quantity: i.quantity,
-          unitPrice: i.unitPrice,
-          totalPrice: i.totalPrice,
-          slug: i.product?.slug || '',
-        })),
+        itemCount: o.items ? o.items.reduce((sum: number, item: any) => sum + item.quantity, 0) : 0,
+        items: o.items
+          ? o.items.map((i: any) => ({
+              id: i.id,
+              productName: i.productName,
+              productImage: i.productImage,
+              productSku: i.productSku,
+              size: i.size,
+              quantity: i.quantity,
+              unitPrice: i.unitPrice,
+              totalPrice: i.totalPrice,
+              slug: i.product?.slug || '',
+            }))
+          : [],
         shippingAddress: o.shippingAddress
           ? {
               recipientName: `${o.shippingAddress.firstName} ${o.shippingAddress.lastName}`,
