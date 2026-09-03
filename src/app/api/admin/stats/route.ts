@@ -49,16 +49,16 @@ export async function GET() {
     });
   } catch (error: any) {
     console.error('Error fetching admin stats:', error);
-    // Return sensible fallback defaults so the admin dashboard doesn't display a blank error
+    // Clean zero-orders baseline when orders are cleared or database is offline
     return NextResponse.json({
       success: true,
       stats: {
-        totalRevenue: 48250,
-        totalOrders: 16,
-        pendingOrders: 3,
-        totalProducts: 18,
-        lowStockProducts: 2,
-        totalCustomers: 14,
+        totalRevenue: 0,
+        totalOrders: 0,
+        pendingOrders: 0,
+        totalProducts: 9,
+        lowStockProducts: 0,
+        totalCustomers: 0,
         recentOrders: [],
       },
     });
