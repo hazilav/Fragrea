@@ -30,7 +30,7 @@ export default function AboutFragreaSection() {
             <div className="absolute inset-0 bg-espresso-950/20 mix-blend-multiply" />
 
             {/* Bottom Atmospheric Inscription */}
-            <div className="absolute bottom-6 left-6 right-6 p-5 bg-noir-950/85 backdrop-blur-md border border-white/10">
+            <div className="absolute bottom-6 left-6 right-6 p-5 bg-noir-950/95 border border-white/15">
               <span className="text-[9px] uppercase tracking-[0.35em] text-gold-400 font-light block">
                 Maison Grasse &bull; Atelier Privé
               </span>

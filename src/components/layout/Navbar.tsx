@@ -40,11 +40,16 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-500 ease-out ${
+      className={`sticky top-0 z-50 transform-gpu will-change-transform transition-colors duration-300 ease-out py-4 ${
         isScrolled
-          ? 'bg-noir-950/98 backdrop-blur-md border-b border-white/10 shadow-2xl shadow-black/80 py-4'
-          : 'bg-noir-950/35 backdrop-blur-sm border-b border-white/5 py-6'
+          ? 'bg-noir-950/95 border-b border-white/10 shadow-2xl shadow-black/80'
+          : 'bg-noir-950/85 border-b border-white/5'
       }`}
+      style={{
+        WebkitBackfaceVisibility: 'hidden',
+        backfaceVisibility: 'hidden',
+        transform: 'translateZ(0)',
+      }}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         {/* ============================================================ */}

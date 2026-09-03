@@ -97,7 +97,7 @@ export default function SignatureFragrancesSection({ products }: SignatureFragra
                   <div className="absolute inset-0 bg-gradient-to-t from-amberGlow-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
                   {/* Discrete Flacon Concentration Badge */}
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-noir-950/85 backdrop-blur-md border border-white/10 text-[8.5px] uppercase tracking-[0.25em] text-gold-300 font-light">
+                  <div className="absolute top-4 left-4 px-3 py-1 bg-noir-950/90 border border-white/15 text-[8.5px] uppercase tracking-[0.25em] text-gold-300 font-light">
                     {p.volume || p.size || '100ml Extrait'}
                   </div>
                 </Link>

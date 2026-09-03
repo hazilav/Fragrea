@@ -35,12 +35,12 @@ export default function EditorialStorySection() {
               <div className="absolute inset-0 bg-gradient-to-t from-amberGlow-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
               {/* Discrete Maison Monogram Tag */}
-              <div className="absolute top-5 left-5 px-3.5 py-1 bg-noir-950/85 backdrop-blur-md border border-gold-400/30 text-[9px] uppercase tracking-[0.3em] text-gold-300 font-light">
+              <div className="absolute top-5 left-5 px-3.5 py-1 bg-noir-950/95 border border-gold-400/30 text-[9px] uppercase tracking-[0.3em] text-gold-300 font-light">
                 Maison Campaign &bull; Icon 01
               </div>
 
               {/* Bottom Inscription */}
-              <div className="absolute bottom-6 left-6 right-6 p-5 bg-noir-950/85 backdrop-blur-md border border-white/10 flex items-center justify-between">
+              <div className="absolute bottom-6 left-6 right-6 p-5 bg-noir-950/95 border border-white/15 flex items-center justify-between">
                 <div>
                   <span className="text-[8.5px] uppercase tracking-[0.3em] text-gold-400 font-medium block">
                     Extrait de Parfum

@@ -12,24 +12,36 @@ export default function Hero() {
       {/* 1. CINEMATIC BACKGROUND: LUXURY PERFUME PHOTOGRAPHY & SHADOWS */}
       {/* ============================================================ */}
       <div className="absolute inset-0 z-0 overflow-hidden select-none pointer-events-none">
-        {/* Cinematic Flacon Image with Slow Drift */}
+        {/* Cinematic Flacon Image */}
         <Image
           src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=2160&auto=format&fit=crop"
           alt="FRAGREA Haute Parfumerie Flacon"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center brightness-[0.42] contrast-[1.2] scale-105 animate-slow-drift motion-reduce:transform-none motion-reduce:animate-none"
+          className="object-cover object-center brightness-[0.42] contrast-[1.2] scale-105 transform-gpu"
         />
 
         {/* Dramatic Chiaroscuro Overlays: Deep Black & Espresso */}
         <div className="absolute inset-0 bg-gradient-to-t from-noir-950 via-noir-950/50 to-noir-950/40" />
         <div className="absolute inset-0 bg-gradient-to-r from-noir-950/80 via-transparent to-noir-950/80" />
-        <div className="absolute inset-0 bg-espresso-950/30 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-espresso-950/30" />
 
-        {/* Soft Ambient Amber Lighting Movement */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[38rem] h-[38rem] bg-amberGlow-500/15 rounded-full blur-[150px] animate-slow-glow motion-reduce:animate-none" />
-        <div className="absolute -top-24 right-1/4 w-80 h-80 bg-gold-400/10 rounded-full blur-[120px] pointer-events-none" />
+        {/* Soft Ambient Amber Lighting (GPU Radial Gradient without expensive blur filters) */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[42rem] h-[42rem] rounded-full pointer-events-none transform-gpu"
+          style={{
+            background: 'radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, rgba(212, 158, 106, 0.05) 45%, transparent 70%)',
+            transform: 'translate3d(-50%, -50%, 0)',
+          }}
+        />
+        <div
+          className="absolute -top-24 right-1/4 w-96 h-96 rounded-full pointer-events-none transform-gpu"
+          style={{
+            background: 'radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 65%)',
+            transform: 'translate3d(0, 0, 0)',
+          }}
+        />
       </div>
 
       {/* ============================================================ */}
