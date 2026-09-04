@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShoppingBag, Search, User, Menu, X } from 'lucide-react';
+import { ShoppingBag, Search, Heart, User, Menu, X, Calendar } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
 export default function Navbar() {
@@ -35,15 +35,17 @@ export default function Navbar() {
       href: '/collections',
       isActive: pathname.startsWith('/collection'),
     },
-    { label: 'ABOUT', href: '/about', isActive: pathname === '/about' },
+    { label: 'ABOUT US', href: '/about', isActive: pathname === '/about' },
+    { label: 'SERVICES', href: '/shipping', isActive: pathname === '/shipping' },
+    { label: 'CONTACT', href: '/returns', isActive: pathname === '/returns' },
   ];
 
   return (
     <header
-      className={`sticky top-0 z-50 transform-gpu will-change-transform transition-colors duration-300 ease-out py-4 ${
+      className={`sticky top-0 z-50 transform-gpu will-change-transform transition-colors duration-300 ease-out ${
         isScrolled
-          ? 'bg-noir-950/95 border-b border-white/10 shadow-2xl shadow-black/80'
-          : 'bg-noir-950/85 border-b border-white/5'
+          ? 'bg-noir-950/98 border-b border-white/10 shadow-2xl shadow-black/90'
+          : 'bg-noir-950/80 border-b border-white/5'
       }`}
       style={{
         WebkitBackfaceVisibility: 'hidden',
@@ -51,109 +53,139 @@ export default function Navbar() {
         transform: 'translateZ(0)',
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-8">
-        {/* ============================================================ */}
-        {/* DESKTOP HEADER (lg and up) */}
-        {/* LEFT: FRAGREA logo image + tagline PERFUMES */}
-        {/* CENTER: HOME | SHOP | COLLECTIONS | ABOUT */}
-        {/* RIGHT: Search icon | Account icon | Bag icon (NO TEXT LABELS) */}
-        {/* ============================================================ */}
-        <div className="hidden lg:flex items-center justify-between">
-          {/* LEFT: FRAGREA Logo */}
-          <div className="flex-1 flex items-center justify-start">
-            <Link
-              href="/"
-              className="inline-block group py-1 select-none"
-              aria-label="FRAGREA Home"
-            >
-              <div className="flex flex-col items-start">
-                <div className="relative w-36 sm:w-44 h-8 sm:h-10">
-                  <Image
-                    src="/images/logo/fragrea-logo-white.png"
-                    alt="FRAGREA"
-                    fill
-                    priority
-                    sizes="(max-width: 640px) 144px, 176px"
-                    className="object-contain object-left transition-opacity duration-300 group-hover:opacity-90"
-                  />
-                </div>
-                <span className="text-[7.5px] sm:text-[8px] uppercase tracking-[0.45em] text-gold-400/90 font-light mt-1 group-hover:text-gold-300 transition-colors duration-300 font-sans">
-                  PERFUMES
-                </span>
-              </div>
-            </Link>
+      {/* ============================================================ */}
+      {/* 1. TOP UTILITY BAR (As seen in the luxury reference image) */}
+      {/* LEFT: EXCLUSIVE COLLECTION + TIMELESS ELEGANCE */}
+      {/* RIGHT: [ BOOK APPOINTMENT ] | Search | Wishlist | Bag */}
+      {/* ============================================================ */}
+      <div className="border-b border-white/5 bg-noir-950/60 hidden sm:block">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 py-2.5 flex items-center justify-between text-xs">
+          {/* Top Left Tagline */}
+          <div className="flex items-center gap-2 select-none">
+            <span className="text-[10px] sm:text-[10.5px] uppercase tracking-[0.35em] text-gold-300/90 font-light font-sans">
+              EXCLUSIVE COLLECTION + TIMELESS ELEGANCE
+            </span>
           </div>
 
-          {/* CENTER: HOME | SHOP | COLLECTIONS | ABOUT */}
+          {/* Top Right Actions: Book Appointment + Icons */}
+          <div className="flex items-center gap-5 sm:gap-6">
+            {/* Book Appointment CTA Button */}
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-1.5 text-[10px] sm:text-[10.5px] uppercase tracking-[0.22em] text-ivory-200 hover:text-gold-300 border border-white/20 hover:border-gold-400/80 px-4 py-1.5 transition-all duration-300 font-sans font-medium hover:bg-gold-400/5 select-none"
+            >
+              <span>BOOK APPOINTMENT</span>
+            </Link>
+
+            {/* Quick Action Line Icons */}
+            <div className="flex items-center gap-4 text-ivory-200">
+              {/* Search */}
+              <Link
+                href="/discover"
+                className="hover:text-gold-300 transition-colors p-1"
+                aria-label="Search Collection"
+                title="Search"
+              >
+                <Search className="w-4 h-4" strokeWidth={1.3} />
+              </Link>
+
+              {/* Wishlist / Favorites */}
+              <Link
+                href="/shop"
+                className="hover:text-gold-300 transition-colors p-1"
+                aria-label="Wishlist & Favorites"
+                title="Wishlist"
+              >
+                <Heart className="w-4 h-4" strokeWidth={1.3} />
+              </Link>
+
+              {/* Shopping Bag */}
+              <Link
+                href="/cart"
+                className="hover:text-gold-300 transition-colors p-1 relative"
+                aria-label="Shopping Bag"
+                title="Shopping Bag"
+              >
+                <ShoppingBag className="w-4 h-4" strokeWidth={1.3} />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1.5 -right-2 bg-gold-400 text-noir-950 text-[8px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ============================================================ */}
+      {/* 2. MAIN NAVIGATION HEADER */}
+      {/* LEFT: Fragrea Logo + Tagline PERFUMES */}
+      {/* CENTER / RIGHT: HOME | SHOP | COLLECTIONS | ABOUT US | SERVICES | CONTACT */}
+      {/* ============================================================ */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 py-3.5 sm:py-4">
+        {/* DESKTOP (lg and up) */}
+        <div className="hidden lg:flex items-center justify-between">
+          {/* LEFT: FRAGREA Logo */}
+          <Link
+            href="/"
+            className="inline-block group py-1 select-none"
+            aria-label="FRAGREA Home"
+          >
+            <div className="flex flex-col items-start">
+              <div className="relative w-36 sm:w-44 h-8 sm:h-9">
+                <Image
+                  src="/images/logo/fragrea-logo-white.png"
+                  alt="FRAGREA"
+                  fill
+                  priority
+                  sizes="(max-width: 640px) 144px, 176px"
+                  className="object-contain object-left transition-opacity duration-300 group-hover:opacity-90"
+                />
+              </div>
+              <span className="text-[7.5px] sm:text-[8px] uppercase tracking-[0.45em] text-gold-400/90 font-light mt-1 group-hover:text-gold-300 transition-colors duration-300 font-sans">
+                PERFUMES
+              </span>
+            </div>
+          </Link>
+
+          {/* RIGHT: Navigation Links */}
           <nav
-            className="flex items-center gap-8 xl:gap-12 select-none"
+            className="flex items-center gap-7 xl:gap-9 select-none"
             aria-label="Main Navigation"
           >
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className={`relative text-[11px] font-medium tracking-[0.25em] uppercase py-1 transition-colors duration-300 font-sans group ${
+                className={`relative text-[11px] tracking-[0.22em] uppercase py-1 transition-colors duration-300 font-sans ${
                   link.isActive
                     ? 'text-gold-300 font-semibold'
-                    : 'text-ivory-200 hover:text-gold-300'
+                    : 'text-ivory-200/90 hover:text-gold-300 font-medium'
                 }`}
               >
                 <span>{link.label}</span>
                 <span
                   className={`absolute bottom-0 left-0 h-[1px] bg-gold-400 transition-all duration-300 ease-out ${
-                    link.isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                    link.isActive ? 'w-full' : 'w-0 hover:w-full'
                   }`}
                 />
               </Link>
             ))}
-          </nav>
 
-          {/* RIGHT: Search icon | Account/Profile icon | Bag icon */}
-          <div className="flex-1 flex items-center justify-end gap-5 xl:gap-6 select-none">
-            {/* 1. SEARCH ICON ONLY */}
-            <Link
-              href="/discover"
-              className="p-2 text-ivory-200 hover:text-gold-300 transition-colors duration-300"
-              aria-label="Search Fragrance Catalog"
-              title="Search"
-            >
-              <Search className="w-[18px] h-[18px]" strokeWidth={1.25} />
-            </Link>
-
-            {/* 2. ACCOUNT / PROFILE ICON ONLY */}
+            {/* Account Icon */}
             <Link
               href="/account"
-              className="p-2 text-ivory-200 hover:text-gold-300 transition-colors duration-300"
-              aria-label="Patron Account Portal"
+              className="ml-2 text-ivory-200 hover:text-gold-300 transition-colors p-1"
+              aria-label="Account"
               title="Account"
             >
-              <User className="w-[18px] h-[18px]" strokeWidth={1.25} />
+              <User className="w-4 h-4" strokeWidth={1.3} />
             </Link>
-
-            {/* 3. BAG ICON ONLY */}
-            <Link
-              href="/cart"
-              className="p-2 text-ivory-100 hover:text-gold-300 transition-colors duration-300 relative"
-              aria-label="Shopping Bag"
-              title="Bag"
-            >
-              <div className="relative">
-                <ShoppingBag className="w-[18px] h-[18px]" strokeWidth={1.25} />
-                {totalItems > 0 && (
-                  <span className="absolute -top-1.5 -right-2 bg-gold-400 text-noir-950 text-[8.5px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center shadow-md">
-                    {totalItems}
-                  </span>
-                )}
-              </div>
-            </Link>
-          </div>
+          </nav>
         </div>
 
-        {/* ============================================================ */}
-        {/* MOBILE HEADER (lg:hidden) */}
-        {/* Left: Menu icon | Center: FRAGREA logo + PERFUMES | Right: Search, Account & Bag icons */}
-        {/* ============================================================ */}
+        {/* MOBILE (lg:hidden) */}
         <div className="flex lg:hidden items-center justify-between">
           {/* Left: Menu Toggle */}
           <button
@@ -190,34 +222,28 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Right: Search, Account & Bag Icons (No text labels) */}
-          <div className="flex items-center gap-2 -mr-2">
-            {/* Search Icon */}
+          {/* Right: Search, Wishlist & Bag Icons */}
+          <div className="flex items-center gap-1.5 -mr-2">
             <Link
               href="/discover"
               className="text-ivory-200 p-2 hover:text-gold-300 transition-colors"
-              aria-label="Search Catalog"
-              title="Search"
+              aria-label="Search"
             >
               <Search className="w-4 h-4" strokeWidth={1.25} />
             </Link>
 
-            {/* Account Icon */}
             <Link
-              href="/account"
+              href="/shop"
               className="text-ivory-200 p-2 hover:text-gold-300 transition-colors"
-              aria-label="Patron Account"
-              title="Account"
+              aria-label="Wishlist"
             >
-              <User className="w-4 h-4" strokeWidth={1.25} />
+              <Heart className="w-4 h-4" strokeWidth={1.25} />
             </Link>
 
-            {/* Bag Icon */}
             <Link
               href="/cart"
               className="text-ivory-100 p-2 hover:text-gold-300 transition-colors relative"
               aria-label="Shopping Bag"
-              title="Bag"
             >
               <div className="relative">
                 <ShoppingBag className="w-4 h-4" strokeWidth={1.25} />
@@ -237,13 +263,17 @@ export default function Navbar() {
       {/* ============================================================ */}
       {isMobileMenuOpen && (
         <div className="lg:hidden border-t border-white/10 bg-noir-950/98 backdrop-blur-2xl px-8 py-8 flex flex-col gap-6 animate-in slide-in-from-top-4 duration-300 shadow-2xl font-sans">
-          <nav className="flex flex-col gap-4 text-xs uppercase tracking-[0.25em]">
+          <div className="text-[10px] uppercase tracking-[0.3em] text-gold-400 font-light pb-2 border-b border-white/5">
+            EXCLUSIVE COLLECTION + TIMELESS ELEGANCE
+          </div>
+
+          <nav className="flex flex-col gap-3 text-xs uppercase tracking-[0.25em]">
             {navLinks.map((link) => (
               <Link
                 key={`mobile-${link.label}`}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`py-2.5 border-b border-white/5 transition-colors font-medium flex items-center justify-between ${
+                className={`py-2 border-b border-white/5 transition-colors font-medium flex items-center justify-between ${
                   link.isActive
                     ? 'text-gold-300 font-semibold'
                     : 'text-ivory-100 hover:text-gold-300'
@@ -256,11 +286,20 @@ export default function Navbar() {
               </Link>
             ))}
 
+            {/* Book Appointment Mobile CTA */}
+            <Link
+              href="/about"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-gold-300 hover:text-gold-200 py-3 border border-gold-400/40 text-center tracking-[0.25em] font-medium mt-2 bg-gold-400/10"
+            >
+              BOOK APPOINTMENT
+            </Link>
+
             {/* Account Quick Link */}
             <Link
               href="/account"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-ivory-200 hover:text-gold-300 py-2.5 border-b border-white/5 transition-colors font-medium flex items-center gap-2.5 pt-4"
+              className="text-ivory-200 hover:text-gold-300 py-2.5 border-b border-white/5 transition-colors font-medium flex items-center gap-2.5"
             >
               <User className="w-4 h-4 text-gold-400" strokeWidth={1.25} />
               <span>Patron Portal</span>
