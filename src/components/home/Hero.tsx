@@ -105,8 +105,9 @@ export default function Hero() {
               alt={`${slide.title1} ${slide.title2} - Fragrea Haute Parfumerie`}
               fill
               priority={idx === 0}
-              sizes="100vw"
-              className="object-cover object-center lg:object-[center_right] brightness-[0.78] contrast-[1.08] transform-gpu"
+              className={`object-cover ${
+                idx === 1 ? 'object-[center_68%] lg:object-[80%_65%]' : 'object-center lg:object-[center_right]'
+              } brightness-[0.78] contrast-[1.08] transform-gpu`}
               style={{
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
@@ -118,6 +119,8 @@ export default function Hero() {
         {/* Chiaroscuro & Cinematic Vignette Overlays */}
         {/* Deep shadow on left half to give typography maximum contrast */}
         <div className="absolute inset-0 bg-gradient-to-r from-noir-950 via-noir-950/70 to-transparent w-full sm:w-3/4 lg:w-3/5" />
+        {/* Soft top gradient to blend under frosted glass navbar */}
+        <div className="absolute top-0 left-0 right-0 h-44 bg-gradient-to-b from-noir-950 via-noir-950/60 to-transparent z-10 pointer-events-none" />
         {/* Soft bottom gradient to merge into signature section */}
         <div className="absolute inset-0 bg-gradient-to-t from-noir-950 via-transparent to-noir-950/40" />
 
@@ -135,7 +138,7 @@ export default function Hero() {
       {/* ============================================================ */}
       {/* 2. MAIN HERO CONTENT (LEFT ALIGNED LIKE REFERENCE) */}
       {/* ============================================================ */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 w-full py-20 lg:py-28">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 w-full pt-28 pb-20 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28">
         <div className="max-w-xl lg:max-w-2xl space-y-6 sm:space-y-7">
           {/* Top Label: CRAFTING */}
           <div className="flex items-center gap-3">

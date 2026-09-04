@@ -42,14 +42,16 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transform-gpu will-change-transform transition-colors duration-300 ease-out ${
+      className={`sticky top-0 z-50 transform-gpu will-change-transform transition-all duration-300 ease-out backdrop-blur-2xl ${
         isScrolled
-          ? 'bg-noir-950/98 border-b border-white/10 shadow-2xl shadow-black/90'
-          : 'bg-noir-950/80 border-b border-white/5'
+          ? 'bg-noir-950/95 border-b border-white/10 shadow-2xl shadow-black/90'
+          : 'bg-noir-950/85 border-b border-white/10'
       }`}
       style={{
         WebkitBackfaceVisibility: 'hidden',
         backfaceVisibility: 'hidden',
+        WebkitBackdropFilter: 'blur(24px)',
+        backdropFilter: 'blur(24px)',
         transform: 'translateZ(0)',
       }}
     >
@@ -58,7 +60,7 @@ export default function Navbar() {
       {/* LEFT: EXCLUSIVE COLLECTION + TIMELESS ELEGANCE */}
       {/* RIGHT: [ BOOK APPOINTMENT ] | Search | Wishlist | Bag */}
       {/* ============================================================ */}
-      <div className="border-b border-white/5 bg-noir-950/60 hidden sm:block">
+      <div className="border-b border-white/5 bg-noir-950/40 backdrop-blur-md hidden sm:block">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 py-2.5 flex items-center justify-between text-xs">
           {/* Top Left Tagline */}
           <div className="flex items-center gap-2 select-none">
